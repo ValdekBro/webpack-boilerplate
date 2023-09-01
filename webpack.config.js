@@ -8,7 +8,21 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     devServer: {
-        static: './dist',
+        static: path.join(__dirname, "dist"),
+        compress: true,
+        port: 4000,
+    },
+    module: {
+        rules: [
+          {
+            test: /\.ts?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+          }
+        ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
         new HtmlWebpackPlugin({  
@@ -21,8 +35,5 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
-    },
-    optimization: {
-        runtimeChunk: 'single',
     },
 };
